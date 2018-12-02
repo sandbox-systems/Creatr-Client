@@ -1,7 +1,15 @@
 import React from "react";
-import {List, Card, Icon} from "antd";
+import {List, Card, Icon, Popconfirm, message,  Button } from "antd";
 import YouTube from 'react-youtube';
-import "./App.css";
+import "../../styles/App.css";
+
+const DeleteVideo = () => (
+  <div style={{ width: 70, float: 'left' }}>
+      <Popconfirm placement="top" title="Delete video?" onConfirm={()=>alert()} okText="Yes" cancelText="No">
+        <Icon type="delete" />
+      </Popconfirm>
+    </div>
+);
 
 const UserList = props => (
   <div>
@@ -12,7 +20,7 @@ const UserList = props => (
       <List.Item>
         <Card 
             title={item.name}
-            actions={[<Icon onClick={() => alert("foo")} type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+            actions={[DeleteVideo(), <Icon type="edit" />]}
         >
             <YouTube
                 videoId={item.vid}

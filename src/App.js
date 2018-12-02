@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./styles/App.css";
 import { Route } from 'react-router-dom'
-import Admin from './Admin'
-import User from './User'
-import Home from './Home'
+import Admin from './components/admin/index'
+import User from './components/user/index'
+import Home from './components/home/index'
 
 
 class App extends Component {

@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import { Row, Col, Layout, Menu, Breadcrumb, Icon } from "antd";
-import "./App.css";
+import "../../styles/App.css";
 import axios from 'axios'
-import UserList from "./UserList.js";
-import VideoGrid from "./VideoGrid.js";
-
+import UserList from "../common/UserList";
+import VideoManager from "./VideoManager"
 const { Header, Content, Sider } = Layout;
 const config = {
   headers: {
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYXJ2aW5kYjAyQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTU0MjgyMTk5MiwiZXhwIjoxNTQyOTk0NzkyLCJpc3MiOiJodHRwczovL3Njb3RjaC5pbyJ9.8rJEntCLNUgLJHGhuXr0Ecyo-a62Aej65WAJ5_8roJA"
+    Authorization: localStorage.getItem('token')
   }
 }
+const AdminContext = React.createContext();
+
 class Admin extends Component {
   state = {
-    current: "users",
+    current: "video",
     users: {},
     videos: {}
   };
@@ -37,13 +37,14 @@ class Admin extends Component {
   handleClick = e => {
     console.log("click ", e);
     this.setState({
-      current: e.key
+      current: e.key  
     });
   };
 
   render() {
     return (
       <div>
+        <AdminContext.Provider value={{update:this.getData}}>
         <Layout style={{ padding: "0 24px 24px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -81,20 +82,11 @@ class Admin extends Component {
               </Col>
             </Row>
             <br/>
-            <Row>
-              <Col span={16}>
                 {this.state.current == "user"  && <UserList users={this.state.users}/>}
-                {this.state.current == "video" && 
-                  <VideoGrid 
-                    videos={this.state.videos}
-                    cols={3}
-                  />
-                }
-
-              </Col>
-            </Row>
+                {this.state.current == "video" && <VideoManager data={this.state.videos}/>}
           </Content>
         </Layout>
+        </AdminContext.Provider>
       </div>
     );
   }

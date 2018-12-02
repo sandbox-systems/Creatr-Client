@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HomeLeadContent = () => {
+const LeadContent = () => {
     return (
         <div>
             <p>
@@ -22,4 +22,4 @@ const HomeLeadContent = () => {
     );
 };
 
-export default HomeLeadContent;
+export default LeadContent;

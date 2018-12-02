@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Layout, Menu, Breadcrumb, Icon } from "antd";
 import LoginForm from './LoginForm'
-import HomeLeadContent from './HomeLeadContent'
+import LeadContent from './LeadContent'
 const { Header, Content, Sider } = Layout;
 
 class Home extends Component {
@@ -19,7 +19,7 @@ class Home extends Component {
           >
             <Row gutter={64}>
               <Col span={16}>
-                <HomeLeadContent/>
+                <LeadContent/>
               </Col>
               <Col span={8}>
                 <LoginForm/>

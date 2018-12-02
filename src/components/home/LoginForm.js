@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import DashboardRedirect from './DashboardRedirect';
+import DashboardRedirect from '../common/DashboardRedirect';
 const FormItem = Form.Item;
 
 class LoginForm extends Component {

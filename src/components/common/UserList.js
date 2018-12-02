@@ -1,6 +1,6 @@
 import React from "react";
 import {List } from "antd";
-import "./App.css";
+import "../../styles/App.css";
 
 const UserList = props => (
   <div>
