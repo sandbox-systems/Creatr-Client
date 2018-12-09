@@ -8849,6 +8849,10 @@ unset-value@^1.0.0:
     has-value "^0.3.1"
     isobject "^3.0.0"
 
+unstated-subscribe-hoc@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/unstated-subscribe-hoc/-/unstated-subscribe-hoc-1.0.0.tgz#2ccda0dbcfda3fbe9b4af8899977955a652a054b"
+
 unstated@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/unstated/-/unstated-2.1.1.tgz#36b124dfb2e7a12d39d0bb9c46dfb6e51276e3a2"

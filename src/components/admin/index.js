@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 import { Row, Col, Layout, Menu, Breadcrumb, Icon } from "antd";
-import "../../styles/App.css";
-import axios from 'axios'
-import UserList from "../common/UserList";
-import VideoManager from "./VideoManager"
-const { Header, Content, Sider } = Layout;
-const config = {
-  headers: {
-    Authorization: localStorage.getItem('token')
-  }
-}
-const AdminContext = React.createContext();
+import subscribe from "unstated-subscribe-hoc";
+import AdminContainer from "../../containers/AdminContainer";
+import AppHeader from '../common/AppHeader'
+import UserManager from "./UserManager";
+import VideoManager from "./VideoManager";
+const { Content } = Layout;
 
 class Admin extends Component {
   state = {
@@ -19,34 +14,23 @@ class Admin extends Component {
     videos: {}
   };
   componentDidMount = () => {
-    this.getData();
-  };
-  getData = () => {
-    axios.all([
-      axios.get("http://localhost:3000/api/v1/users", config),
-      axios.get("http://localhost:3000/api/v1/videos", config)
-    ])
-    .then(axios.spread((userRes, videoRes) => {
-      this.setState({ users: userRes.data.result, videos: videoRes.data.result });
-    }))
-    .catch(error => {
-      console.log(error);
-    })
+    const { adminStore } = this.props;
+    adminStore.getData();
   };
 
   handleClick = e => {
-    console.log("click ", e);
     this.setState({
-      current: e.key  
+      current: e.key
     });
   };
 
   render() {
+    const { adminStore } = this.props;
     return (
-      <div>
-        <AdminContext.Provider value={{update:this.getData}}>
-        <Layout style={{ padding: "0 24px 24px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
+      <div className="admin">
+        <Layout>
+          <AppHeader/>
+          <Breadcrumb style={{ margin: "16px 0"}}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>Admin</Breadcrumb.Item>
             <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
@@ -81,15 +65,14 @@ class Admin extends Component {
                 </Menu>
               </Col>
             </Row>
-            <br/>
-                {this.state.current == "user"  && <UserList users={this.state.users}/>}
-                {this.state.current == "video" && <VideoManager data={this.state.videos}/>}
+            <br />
+            {this.state.current == "user" && <UserManager />}
+            {this.state.current == "video" && <VideoManager />}
           </Content>
         </Layout>
-        </AdminContext.Provider>
       </div>
     );
   }
 }
 
-export default Admin;
+export default subscribe(Admin, { adminStore: AdminContainer });

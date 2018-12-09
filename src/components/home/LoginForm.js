@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from 'axios'
+import subscribe from 'unstated-subscribe-hoc'
+import AuthContainer from '../../containers/AuthContainer'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import DashboardRedirect from '../common/DashboardRedirect';
 const FormItem = Form.Item;
 
 class LoginForm extends Component {
@@ -9,30 +10,19 @@ class LoginForm extends Component {
     loggedIn: false
   }
   handleSubmit = e => {
+    const {authStore} =  this.props
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.login(values)      
+        authStore.login(values);
       }
     });
   }
-  login = values => {
-    axios.post('/api/v1/login/', values)
-    .then( response => {
-      localStorage.setItem('token', `Bearer ${response.data.token}`);
-      localStorage.setItem('role', response.data.result.role);
-      this.setState({loggedIn:true}) 
-      console.log(response);
-    })
-    .catch( error => {
-      console.log(error);
-    });
-  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
       <div>
-        {this.state.loggedIn && <DashboardRedirect/>}
         <Form onSubmit={this.handleSubmit} className="login-form">
           <FormItem>
             {getFieldDecorator('email', {
@@ -65,6 +55,4 @@ class LoginForm extends Component {
     );
   }
 }
-
-
-export default Form.create()(LoginForm);
+export default subscribe(Form.create()(LoginForm), { authStore:  AuthContainer });

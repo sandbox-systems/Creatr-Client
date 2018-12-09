@@ -1,52 +1,25 @@
 import React, { Component } from "react";
-import axios from 'axios'
-import {
-  Modal,
-  Form,
-  Select,
-  Radio,
-  Button,
-  Upload,
-  Icon,
-  Input,
-  DatePicker,
-  TimePicker
-} from "antd";
+import axios from "axios";
+import AdminContainer from "../../containers/AdminContainer";
+import subscribe from "unstated-subscribe-hoc";
+import { Modal, Form, Button, Upload, Icon, Input, DatePicker } from "antd";
 
 const { TextArea } = Input;
 const FormItem = Form.Item;
-const Option = Select.Option;
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
-
-const config = {
-  headers: {
-    Authorization: localStorage.getItem('token')
-  }
-}
-
 
 class NewVideoModal extends Component {
-  // static contextType = A;
-  handleSubmit = e => {
-    // e.preventDefault();
+
+  handleSubmit = () => {
+    const { adminStore } = this.props;
     this.props.form.validateFields((err, values) => {
       if (!err) {
         values.date = values.date.toISOString();
-        console.log(values)
-        axios
-          .post("/api/v1/videos/", values, config)
-          .then(response => {
-            this.setState({ loggedIn: true });
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        adminStore.createVideo(values);
+        this.props.close()
       }
     });
-    // this.context.update();
   };
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -96,30 +69,6 @@ class NewVideoModal extends Component {
                 ]
               })(<DatePicker showTime format="MMM Do YY, h:mm A" use12Hours />)}
             </FormItem>
-            {/* <FormItem {...formItemLayout} label="Broadcast Time" >
-              {getFieldDecorator("time", {
-                rules: [
-                  { required: true, message: "Please input the broadcast time for your video!" }
-                ]
-              })(
-                <TimePicker use12Hours format="h:mm A"/>
-              )}
-            </FormItem> */}
-            {/* <FormItem {...formItemLayout} label="Broadcast Time" >
-              {getFieldDecorator("tags", {
-                rules: [
-                  { required: true, message: "Please input the broadcast date for your video!" }
-                ]
-              })(
-                <Select
-    mode="multiple"
-    style={{ width: '100%' }}
-    placeholder="Please select"
-    defaultValue={['Educational']}
-  >
-  </Select>
-              )}
-            </FormItem> */}
             <FormItem {...formItemLayout} label="Thumbnail">
               {getFieldDecorator("thumbnail", {
                 valuePropName: "fileList",
@@ -139,4 +88,6 @@ class NewVideoModal extends Component {
   }
 }
 
-export default Form.create()(NewVideoModal);
+export default subscribe(Form.create()(NewVideoModal), {
+  adminStore: AdminContainer
+});
