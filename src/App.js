@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 import Admin from './components/admin/index'
 import User from './components/user/index'
 import Home from './components/home/index'
-
+import AuthRedirect from './components/common/AuthRedirect'
 
 class App extends Component {
   render() {

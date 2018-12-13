@@ -33,7 +33,8 @@ const AppHeader = ({ authStore }) => (
         </Menu> */}
         <Dropdown overlay={menu}>
           <a className="ant-dropdown-link" href="#">
-            Arvind Balaji <Icon type="down" />
+            {`${authStore.state.firstname} ${authStore.state.lastname}`} 
+            <Icon type="down" />
           </a>
         </Dropdown>
       </Header>

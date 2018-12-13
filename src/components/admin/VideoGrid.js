@@ -72,7 +72,7 @@ const VideoGrid = props => (
             }  
           >
             <YouTube
-              videoId={item.vid}
+              videoId={item.vid ? item.vid: null}
               opts={{
                 height: "100%",
                 width: "100%",

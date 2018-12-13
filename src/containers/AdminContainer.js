@@ -9,7 +9,9 @@ class AdminContainer extends Container {
       newVideoModal: false,
       updateVideoModal: false,
       startStreamModal: false,
-    }
+    },
+    stream: null,
+    streamkey: null
   };
 
   config = {
@@ -18,18 +20,62 @@ class AdminContainer extends Container {
     }
   };
 
+  // getLiveStream = async () => {
+  //   try {
+  //     const res = await axios.get("http://localhost:3000/api/v1/streams/");
+  //     this.setState({
+  //       liveStream:res.result,
+  //       key:res.key
+  //     })
+  //   } catch (error) {
+      
+  //   }
+  // }
+
   getData = async () => {
     try {
       const res = await Promise.all([
         axios.get("http://localhost:3000/api/v1/videos", this.config),
-        axios.get("http://localhost:3000/api/v1/users", this.config)
+        axios.get("http://localhost:3000/api/v1/users", this.config),
+        axios.get("http://localhost:3000/api/v1/streams", this.config)
       ]);
-      const [videosRes, usersRes] = res;
+      const [videosRes, usersRes, streamRes] = res;
       console.log(res)
       this.setState({
         users: usersRes.data.result,
-        videos: videosRes.data.result
+        videos: videosRes.data.result,
+        stream: streamRes.data.result,
+        streamkey: streamRes.data.result,
       });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  startStream = async id => {
+    try {
+      const res = await axios({
+        method: 'post',
+        url: '/api/v1/streams/',
+        headers: this.config.headers,
+        data: {id}
+      });
+      this.getData()
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  stopStream = async id => {
+    try {
+      console.log({id})
+      const res = await axios({
+        method: 'delete',
+        url: '/api/v1/streams/',
+        headers: this.config.headers,
+        data: {id}
+      });
+      this.getData()
     } catch (error) {
       console.error("Error:", error);
     }
@@ -54,7 +100,6 @@ class AdminContainer extends Container {
         data: {id}
       });
       this.getData()
-      console.log(res);
     } catch (error) {
       console.error("Error:", error);
     }
