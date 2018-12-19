@@ -9,13 +9,15 @@ function AuthRedirect({authStore}) {
       case "admin":
         return <Redirect to="/admin"/>
         break;
-    
+      case "student":
+        return <Redirect to="/portal"/>
+        break;
       default:
         return null
         break;
     }
   }else{
-    return null;
+    return <Redirect to="/"/>;
   }
   
   // return (

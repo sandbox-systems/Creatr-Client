@@ -1,14 +1,48 @@
-@import '~antd/dist/antd.css';
+/* @import '~antd/dist/antd.css'; */
 
 .App {
   /* text-align: center; */
 }
-.admin {
+.admin, .student {
   text-align: center;
 }
 
 .app-header {
-  box-shadow: 0 2px 8px #e2e2e2;
-  background: white;
+  box-shadow: 0 2px 8px #00000017;
+  background: white!important;
   text-align: right;
+}
+
+.app-header .user-dropdown {
+  font-size: 1.2em;
+  color:#585f66 !important;
+}
+
+.app-header .user-icon {
+  position: relative;
+  font-size: 1.3em;
+  top: 4px;
+  margin-right: 12px; 
+}
+
+.creatr-logo {
+  font-size: 1.8em;
+  font-weight: 500;
+  font-family: helvetica;
+  color:#1890ff;
+}
+
+.editor-container {
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  height: 100%;
+}
+
+.editor-body {
+  padding: 0 20px;
+}
+
+.editor-toolbar {
+  border: unset !important;
+  border-bottom: 1px solid #F1F1F1!important;
 }

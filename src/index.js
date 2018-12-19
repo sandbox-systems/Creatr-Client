@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'unstated'
+import UNSTATED from 'unstated-debug';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom'
+
+UNSTATED.logStateChanges = false;
 
 
 ReactDOM.render(

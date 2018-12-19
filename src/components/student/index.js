@@ -1,23 +1,21 @@
 import React, { Component } from "react";
 import { Row, Col, Layout, Menu, Breadcrumb, Icon } from "antd";
 import subscribe from "unstated-subscribe-hoc";
-import AdminContainer from "../../containers/AdminContainer";
+import StudentContainer from "../../containers/StudentContainer";
 import AppHeader from '../common/AppHeader'
 import UserManager from "./UserManager";
 import VideoManager from "./VideoManager";
-import ContentManager from "./ContentManager";
-
 const { Content } = Layout;
 
-class Admin extends Component {
+class Student extends Component {
   state = {
     current: "video",
     users: {},
     videos: {}
   };
   componentDidMount = () => {
-    const { adminStore } = this.props;
-    adminStore.getData();
+    const { studentStore } = this.props;
+    studentStore.getData();
   };
 
   handleClick = e => {
@@ -27,15 +25,15 @@ class Admin extends Component {
   };
 
   render() {
-    const { adminStore } = this.props;
+    const { studentStore } = this.props;
     return (
-      <div className="admin">
+      <div className="student">
         <Layout>
           <AppHeader/>
           <Breadcrumb style={{ margin: "16px 0"}}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Admin</Breadcrumb.Item>
-            <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+            <Breadcrumb.Item>Student</Breadcrumb.Item>
+            <Breadcrumb.Item>Course Access Portal</Breadcrumb.Item>
           </Breadcrumb>
           <Content
             style={{
@@ -68,9 +66,8 @@ class Admin extends Component {
               </Col>
             </Row>
             <br />
-            {this.state.current == "user" && <UserManager />}
-            {this.state.current == "content" && <ContentManager />}
-            {this.state.current == "video" && <VideoManager />}
+            {/* {this.state.current == "user" && <UserManager />}
+            {this.state.current == "video" && <VideoManager />} */}
           </Content>
         </Layout>
       </div>
@@ -78,4 +75,4 @@ class Admin extends Component {
   }
 }
 
-export default subscribe(Admin, { adminStore: AdminContainer });
+export default subscribe(Student, { studentStore: StudentContainer });

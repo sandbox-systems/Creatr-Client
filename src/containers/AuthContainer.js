@@ -64,13 +64,15 @@ class AuthContainer extends Container {
     }
   };
 
-  logout = async formData => {
+  logout = async () => {
+    console.log("logged out!")
     this.setState({
       loggedIn: false,
       role: ''
     })
-    localStorage.removeItem('role')  
-    localStorage.removeItem('admin')  
+    localStorage.removeItem('role')
+    localStorage.removeItem('admin') 
+    localStorage.removeItem('token') 
   };
 }
 

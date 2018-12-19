@@ -10,15 +10,11 @@ class AdminContainer extends Container {
       updateVideoModal: false,
       startStreamModal: false,
     },
+    isLoading: false,
     stream: null,
     streamkey: null
   };
 
-  config = {
-    headers: {
-      Authorization: localStorage.getItem("token")
-    }
-  };
 
   // getLiveStream = async () => {
   //   try {
@@ -34,10 +30,11 @@ class AdminContainer extends Container {
 
   getData = async () => {
     try {
+      this.setState({isLoading:true})
       const res = await Promise.all([
-        axios.get("http://localhost:3000/api/v1/videos", this.config),
-        axios.get("http://localhost:3000/api/v1/users", this.config),
-        axios.get("http://localhost:3000/api/v1/streams", this.config)
+        axios.get("http://localhost:3000/api/v1/videos", this.getConfig()),
+        axios.get("http://localhost:3000/api/v1/users", this.getConfig()),
+        axios.get("http://localhost:3000/api/v1/streams", this.getConfig())
       ]);
       const [videosRes, usersRes, streamRes] = res;
       console.log(res)
@@ -46,6 +43,7 @@ class AdminContainer extends Container {
         videos: videosRes.data.result,
         stream: streamRes.data.result,
         streamkey: streamRes.data.result,
+        isLoading:false
       });
     } catch (error) {
       console.error("Error:", error);
@@ -57,7 +55,7 @@ class AdminContainer extends Container {
       const res = await axios({
         method: 'post',
         url: '/api/v1/streams/',
-        headers: this.config.headers,
+        headers: this.getConfig().headers,
         data: {id}
       });
       this.getData()
@@ -72,7 +70,7 @@ class AdminContainer extends Container {
       const res = await axios({
         method: 'delete',
         url: '/api/v1/streams/',
-        headers: this.config.headers,
+        headers: this.getConfig().headers,
         data: {id}
       });
       this.getData()
@@ -83,7 +81,7 @@ class AdminContainer extends Container {
 
   createVideo = async formData => {
     try {
-      const res = await axios.post("/api/v1/videos/", formData, this.config);
+      const res = await axios.post("/api/v1/videos/", formData, this.getConfig());
       this.getData()
       console.log(res);
     } catch (error) {
@@ -96,7 +94,7 @@ class AdminContainer extends Container {
       const res = await axios({
         method: 'delete',
         url: '/api/v1/videos/',
-        headers: this.config.headers,
+        headers: this.getConfig().headers,
         data: {id}
       });
       this.getData()
@@ -105,6 +103,13 @@ class AdminContainer extends Container {
     }
   };
 
+  getConfig = () => {
+    return {
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    }
+  }
   // openModal = async modalName => {
   //   const modal = {mod}
   //   this.setState(state => {

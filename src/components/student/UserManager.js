@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Row, Col, Button, Icon, Affix } from "antd";
 import AdminContainer from "../../containers/AdminContainer";
 import subscribe from "unstated-subscribe-hoc";
+import VideoGrid from "./VideoGrid";
+import NewVideoModal from "./NewVideoModal";
 import UserList from "../common/UserList";
 
 class UserManager extends Component {

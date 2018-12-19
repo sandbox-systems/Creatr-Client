@@ -54,7 +54,8 @@ const VideoGrid = ({adminStore, cols, videos}) => (
             extra={
               <Dropdown overlay={actionList(item, adminStore)} trigger={['click']}>
               <a className="ant-dropdown-link" href="#">
-              <Icon type="down"   style={{ fontSize: '16px', color: '#08c' }} />
+              <Icon type="delete" />
+              More
               </a>
             </Dropdown>
             }  
@@ -66,7 +67,7 @@ const VideoGrid = ({adminStore, cols, videos}) => (
                 width: "100%",
                 playerVars: {
                   modestbranding: "1",
-                  frameborder:"0",
+                  iv_load_policy: "3"
                   // controls:'0'
                 }
               }}
