@@ -28,12 +28,14 @@ const AppHeader = ({ authStore }) => (
           </Col>
           <Col span={16} />
           <Col span={6}>
-            <Dropdown overlay={menu(authStore)}>
-              <a className="user-dropdown" href="#">
-                <MdPerson className="user-icon" />
-                {`${authStore.state.firstname} ${authStore.state.lastname}`}
-              </a>
-            </Dropdown>
+            { authStore.state.loggedIn &&
+              <Dropdown overlay={menu(authStore)}>
+                <a className="user-dropdown" href="#">
+                  <MdPerson className="user-icon" />
+                  {`${authStore.state.firstname} ${authStore.state.lastname}`}
+                </a>
+              </Dropdown>
+            }
           </Col>
         </Row>
       </Header>

@@ -7,8 +7,8 @@ class AuthContainer extends Container {
     this.getUser()
 
     this.state = {
-      loggedIn: false,
-      role: '',
+      loggedIn: localStorage.getItem('role') ? true : false,
+      role: localStorage.getItem('role'),
       firstname: '',
       lastname: ''
     };
@@ -30,7 +30,9 @@ class AuthContainer extends Container {
         lastname: res.data.result.lastname,
       });
     } catch (error) {
+      this.setState({loggedIn: false})
       console.error("Login Failed")
+      // throw new Error('Failed')
     }
   }
 
@@ -45,6 +47,7 @@ class AuthContainer extends Container {
       });
     } catch (error) {
       console.error("Token Refresh Failed", "Logged Out")
+      throw new Error('Failed to refresh')
     }
   }
 
@@ -61,6 +64,7 @@ class AuthContainer extends Container {
       localStorage.setItem('role', res.data.result.role);
     } catch (error) {
       console.error("Error:", error);
+      throw new Error('Invalid Credentials')
     }
   };
 

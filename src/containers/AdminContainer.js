@@ -1,19 +1,23 @@
 import { Container } from "unstated";
 import axios from "axios";
 class AdminContainer extends Container {
-  state = {
-    current: "user",
-    users: [],
-    videos: [],
-    modal: {
-      newVideoModal: false,
-      updateVideoModal: false,
-      startStreamModal: false,
-    },
-    isLoading: false,
-    stream: null,
-    streamkey: null
-  };
+  constructor() {
+    super()
+
+    //this.getData()
+
+    this.state = {
+      current: "user",
+      users: [],
+      videos: [],
+  
+      isLoading: false,
+      stream: null,
+      streamkey: null
+    };
+  
+  }
+
 
 
   // getLiveStream = async () => {
@@ -32,9 +36,9 @@ class AdminContainer extends Container {
     try {
       this.setState({isLoading:true})
       const res = await Promise.all([
-        axios.get("http://localhost:3000/api/v1/videos", this.getConfig()),
-        axios.get("http://localhost:3000/api/v1/users", this.getConfig()),
-        axios.get("http://localhost:3000/api/v1/streams", this.getConfig())
+        axios.get("/api/v1/videos", this.getConfig()),
+        axios.get("/api/v1/users", this.getConfig()),
+        axios.get("/api/v1/streams", this.getConfig())
       ]);
       const [videosRes, usersRes, streamRes] = res;
       console.log(res)
@@ -48,8 +52,7 @@ class AdminContainer extends Container {
     } catch (error) {
       console.error("Error:", error);
     }
-  };
-
+  }  
   startStream = async id => {
     try {
       const res = await axios({
@@ -79,7 +82,7 @@ class AdminContainer extends Container {
     }
   };
 
-  createVideo = async formData => {
+  addVideo = async formData => {
     try {
       const res = await axios.post("/api/v1/videos/", formData, this.getConfig());
       this.getData()
@@ -103,6 +106,16 @@ class AdminContainer extends Container {
     }
   };
 
+  addContent = async formData => {
+    try {
+      const res = await axios.post("/api/v1/content/", formData, this.getConfig());
+      this.getData()
+      console.log(res);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   getConfig = () => {
     return {
       headers: {
@@ -110,12 +123,6 @@ class AdminContainer extends Container {
       }
     }
   }
-  // openModal = async modalName => {
-  //   const modal = {mod}
-  //   this.setState(state => {
-  //     return { :  true };
-  //   });
-  // };
-}
 
+}
 export default AdminContainer;

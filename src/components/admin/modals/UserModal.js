@@ -1,23 +1,23 @@
 import React, { Component } from "react";
 import axios from "axios";
-import AdminContainer from "../../containers/AdminContainer";
+import AdminContainer from "../../../containers/AdminContainer";
 import subscribe from "unstated-subscribe-hoc";
 import { Modal, Form, Button, Upload, Icon, Input, DatePicker } from "antd";
 
 const { TextArea } = Input;
 const FormItem = Form.Item;
 
-class NewVideoModal extends Component {
+class UserModal extends Component {
 
   handleSubmit = () => {
     const { adminStore } = this.props;
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        values.date = values.date.toISOString();
-        adminStore.createVideo(values);
+    // this.props.form.validateFields((err, values) => {
+    //   if (!err) {
+    //     values.date = values.date.toISOString();
+    //     adminStore.addVideo(values);
         this.props.close()
-      }
-    });
+    //   }
+    // });
   };
 
   render() {
@@ -69,18 +69,6 @@ class NewVideoModal extends Component {
                 ]
               })(<DatePicker showTime format="MMM Do YY, h:mm A" use12Hours />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="Thumbnail">
-              {getFieldDecorator("thumbnail", {
-                valuePropName: "fileList",
-                getValueFromEvent: this.normFile
-              })(
-                <Upload name="logo" action="/upload.do" listType="picture">
-                  <Button disabled>
-                    <Icon type="upload" /> Click to upload
-                  </Button>
-                </Upload>
-              )}
-            </FormItem>
           </Form>
         </Modal>
       </div>
@@ -88,6 +76,6 @@ class NewVideoModal extends Component {
   }
 }
 
-export default subscribe(Form.create()(NewVideoModal), {
+export default subscribe(Form.create()(UserModal), {
   adminStore: AdminContainer
 });

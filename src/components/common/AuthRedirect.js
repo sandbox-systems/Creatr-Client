@@ -13,13 +13,12 @@ function AuthRedirect({authStore}) {
         return <Redirect to="/portal"/>
         break;
       default:
-        return null
+        return <Redirect to="/"/>
         break;
     }
-  }else{
-    return <Redirect to="/"/>;
   }
-  
+  return null;
+
   // return (
   //   <div>
   //     {role == 'admin' && <Redirect to="/admin"/>}

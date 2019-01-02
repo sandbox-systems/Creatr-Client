@@ -1,23 +1,25 @@
+import { Breadcrumb, Col, Icon, Layout, Menu, Row } from "antd";
 import React, { Component } from "react";
-import { Row, Col, Layout, Menu, Breadcrumb, Icon } from "antd";
 import subscribe from "unstated-subscribe-hoc";
 import AdminContainer from "../../containers/AdminContainer";
-import AppHeader from '../common/AppHeader'
+import AppHeader from '../common/AppHeader';
+import AppFooter from '../common/AppFooter';
+import ContentManager from "./ContentManager";
 import UserManager from "./UserManager";
 import VideoManager from "./VideoManager";
-import ContentManager from "./ContentManager";
 
-const { Content } = Layout;
+const { Content, Footer } = Layout;
 
 class Admin extends Component {
   state = {
-    current: "video",
+    current: "content",
     users: {},
     videos: {}
   };
   componentDidMount = () => {
     const { adminStore } = this.props;
-    adminStore.getData();
+    console.log("mounted!")
+   adminStore.getData();
   };
 
   handleClick = e => {
@@ -32,25 +34,22 @@ class Admin extends Component {
       <div className="admin">
         <Layout>
           <AppHeader/>
-          <Breadcrumb style={{ margin: "16px 0"}}>
+          <Content
+            style={{ padding: '0 50px' }}
+          >
+          <Breadcrumb className="breadcrumb" style={{ margin: "16px 0"}}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>Admin</Breadcrumb.Item>
             <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
           </Breadcrumb>
-          <Content
-            style={{
-              background: "#fff",
-              padding: 24,
-              margin: 0,
-              minHeight: 280
-            }}
-          >
+          <div style={{ background: '#fff', padding: 24, }}>
             <Row>
               <Col span={24}>
                 <Menu
                   onClick={this.handleClick}
                   selectedKeys={[this.state.current]}
                   mode="horizontal"
+                  className="menu"
                 >
                   <Menu.Item key="user">
                     <Icon type="user" />
@@ -71,7 +70,9 @@ class Admin extends Component {
             {this.state.current == "user" && <UserManager />}
             {this.state.current == "content" && <ContentManager />}
             {this.state.current == "video" && <VideoManager />}
+            </div>
           </Content>
+          <AppFooter/>
         </Layout>
       </div>
     );

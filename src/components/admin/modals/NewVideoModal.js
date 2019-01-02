@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import AdminContainer from "../../containers/AdminContainer";
+import AdminContainer from "../../../containers/AdminContainer";
 import subscribe from "unstated-subscribe-hoc";
 import { Modal, Form, Button, Upload, Icon, Input, DatePicker } from "antd";
 
@@ -14,7 +14,7 @@ class NewVideoModal extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         values.date = values.date.toISOString();
-        adminStore.createVideo(values);
+        adminStore.addVideo(values);
         this.props.close()
       }
     });

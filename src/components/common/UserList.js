@@ -1,5 +1,5 @@
 import React from "react";
-import {List } from "antd";
+import {List, Icon } from "antd";
 import "../../styles/App.css";
 
 const UserList = props => (
@@ -9,7 +9,9 @@ const UserList = props => (
       itemLayout="horizontal"
       dataSource={props.users}
       renderItem={item => (
-        <List.Item>
+        <List.Item 
+          // actions={[<a><Icon type="info-circle" /></a>]}
+        >
           <List.Item.Meta
             title={<a>{ `${item.firstname} ${item.lastname}`}</a>}
             description={item.email}

@@ -1,17 +1,26 @@
 import React, { Component } from "react";
-import { Row, Col, Layout, Menu, Breadcrumb, Icon } from "antd";
+import { Route } from 'react-router-dom'
+import { Row, Col, Layout, Menu, Breadcrumb, Icon, Card } from "antd";
 import subscribe from "unstated-subscribe-hoc";
 import StudentContainer from "../../containers/StudentContainer";
-import AppHeader from '../common/AppHeader'
-import UserManager from "./UserManager";
-import VideoManager from "./VideoManager";
+import {
+  MdVideoLibrary,
+  MdVideocam,
+  MdAssignment,
+  MdInsertInvitation,
+} from "react-icons/md";
+import AppHeader from "../common/AppHeader";
+import AppFooter from "../common/AppFooter";
+import VideoArchive from "./VideoArchive"
+import {default as ContentPage} from "./Content"
+import TileNav from "./TileNav"
+import Live from "./Live"
+
 const { Content } = Layout;
 
 class Student extends Component {
   state = {
-    current: "video",
-    users: {},
-    videos: {}
+    current: "video"
   };
   componentDidMount = () => {
     const { studentStore } = this.props;
@@ -29,46 +38,24 @@ class Student extends Component {
     return (
       <div className="student">
         <Layout>
-          <AppHeader/>
-          <Breadcrumb style={{ margin: "16px 0"}}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Student</Breadcrumb.Item>
-            <Breadcrumb.Item>Course Access Portal</Breadcrumb.Item>
-          </Breadcrumb>
-          <Content
-            style={{
-              background: "#fff",
-              padding: 24,
-              margin: 0,
-              minHeight: 280
-            }}
-          >
-            <Row>
-              <Col span={24}>
-                <Menu
-                  onClick={this.handleClick}
-                  selectedKeys={[this.state.current]}
-                  mode="horizontal"
-                >
-                  <Menu.Item key="user">
-                    <Icon type="user" />
-                    Users
-                  </Menu.Item>
-                  <Menu.Item key="content">
-                    <Icon type="file-add" />
-                    Manage Content
-                  </Menu.Item>
-                  <Menu.Item key="video">
-                    <Icon type="video-camera" />
-                    Video Archive
-                  </Menu.Item>
-                </Menu>
-              </Col>
-            </Row>
+          <AppHeader />
+          <Content style={{ padding: "0 32px" }}>
+            <Breadcrumb className="breadcrumb" style={{ margin: "16px 0" }}>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+              <Breadcrumb.Item>Student</Breadcrumb.Item>
+              <Breadcrumb.Item>Course Access Portal</Breadcrumb.Item>
+            </Breadcrumb>
+            <div style={{ background: "#fff", padding: 50 }}>
+              <Route exact path='/portal/' component={TileNav}/>
+              <Route path='/portal/videos' component={VideoArchive}/>
+              <Route path='/portal/notes' component={ContentPage}/>
+              <Route path='/portal/live' component={Live}/>
+            </div>
             <br />
             {/* {this.state.current == "user" && <UserManager />}
             {this.state.current == "video" && <VideoManager />} */}
           </Content>
+          <AppFooter />
         </Layout>
       </div>
     );

@@ -6,8 +6,13 @@ import subscribe from "unstated-subscribe-hoc";
 import { Editor } from "react-draft-wysiwyg";
 // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-const ContentEditor = ({ onChange, editorState }) => (
-  <ReactQuill className="editor" value={editorState} onChange={onChange} />
+const ContentView = ({ data }) => (
+  <ReactQuill 
+  readOnly
+    toolbar="false"
+    className="editor" 
+    value={data} 
+  />
 );
 
-export default subscribe(ContentEditor, { adminStore: AdminContainer });
+export default subscribe(ContentView, { adminStore: AdminContainer });

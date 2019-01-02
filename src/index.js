@@ -5,7 +5,7 @@ import UNSTATED from 'unstated-debug';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom'
 
-UNSTATED.logStateChanges = false;
+UNSTATED.logStateChanges = true;
 
 
 ReactDOM.render(

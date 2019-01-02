@@ -1,21 +1,23 @@
 import React, { Component } from "react";
 import axios from "axios";
-import AdminContainer from "../../containers/AdminContainer";
+import AdminContainer from "../../../containers/AdminContainer";
 import subscribe from "unstated-subscribe-hoc";
 import { Modal, Form, Button, Upload, Icon, Input, DatePicker, Select } from "antd";
 
 const { TextArea } = Input;
+const { Option } = Select;
+
 const FormItem = Form.Item;
-const Option = Select.Option;
 
-
-class StartStreaModal extends Component {
+class NewContentModal extends Component {
 
   handleSubmit = () => {
-    const { adminStore } = this.props;
+    const { adminStore, editorContent } = this.props;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        adminStore.startStream(values.video);
+        values.data = editorContent
+        console.log(values.data, editorContent)
+        adminStore.addContent(values);
         console.log(values)
         this.props.close()
       }
@@ -34,18 +36,38 @@ class StartStreaModal extends Component {
     return (
       <div>
         <Modal
-          title="Start a Live Stream"
+          title="Publish Content"
           centered
           visible={this.props.visible}
           onOk={() => this.handleSubmit()}
           onCancel={() => this.props.close()}
         >
           <Form autocomplete="off" onSubmit={this.handleSubmit}>
-            <FormItem {...formItemLayout} label="Streams">
-              {getFieldDecorator("video", {
+            <FormItem {...formItemLayout} label="Title">
+              {getFieldDecorator("title", {
                 rules: [
                   {
                     required: true,
+                    message: "Please input the title for your content!"
+                  }
+                ]
+              })(<Input />)}
+            </FormItem>
+
+            <FormItem {...formItemLayout} label="Description">
+              {getFieldDecorator("description", {
+                rules: [
+                  {
+                    required: false,
+                  }
+                ]
+              })(<TextArea />)}
+            </FormItem>
+              
+            <FormItem {...formItemLayout} label="Video">
+              {getFieldDecorator("video", {
+                rules: [
+                  {
                     message: "Pick a Stream!"
                   }
                 ]
@@ -59,8 +81,8 @@ class StartStreaModal extends Component {
                   // filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 >
                   {
-                    videos.filter(item => item.state=="scheduled").map( item => (
-                      <Option value={item._id}>{item.name}</Option>
+                    videos.map( item => (
+                      <Option key={item._id} value={item._id}>{item.name}</Option>
                     ))
                   }
                 </Select>
@@ -73,6 +95,6 @@ class StartStreaModal extends Component {
   }
 }
 
-export default subscribe(Form.create()(StartStreaModal), {
+export default subscribe(Form.create()(NewContentModal), {
   adminStore: AdminContainer
 });

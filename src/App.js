@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./styles/App.css";
 import { Route } from 'react-router-dom'
+import PrivateRoute from './components/common/PrivateRoute'
 import Admin from './components/admin/index'
 import User from './components/user/index'
 import Home from './components/home/index'
@@ -12,10 +13,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <AuthRedirect/>
+        {/* <AuthRedirect/> */}
         <Route exact path='/' component={Home}/>
-        <Route path='/admin' component={Admin}/>
-        <Route path='/portal' component={Student}/>
+        <PrivateRoute path='/admin' component={Admin} role="admin"/>
+        <PrivateRoute path='/portal' component={Student} role="student"/>
       </div>
     );
   }

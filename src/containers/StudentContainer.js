@@ -31,12 +31,14 @@ class StudentContainer extends Container {
       this.setState({ isLoading: true });
       const res = await Promise.all([
         axios.get("http://localhost:3000/api/v1/videos", this.config),
-        axios.get("http://localhost:3000/api/v1/streams", this.config)
+        axios.get("http://localhost:3000/api/v1/streams", this.config),
+        axios.get("http://localhost:3000/api/v1/content", this.config)
       ]);
-      const [videosRes, streamRes] = res;
+      const [videosRes, streamRes, contentRes] = res;
       console.log(res);
       this.setState({
         videos: videosRes.data.result,
+        content: contentRes.data.result,
         stream: streamRes.data.result,
         isLoading: false
       });

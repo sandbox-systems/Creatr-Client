@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import AdminContainer from "../../containers/AdminContainer";
+import AdminContainer from "../../../containers/AdminContainer";
 import subscribe from "unstated-subscribe-hoc";
 import { Modal, Form, Button, Upload, Icon, Input, DatePicker, Select } from "antd";
 
