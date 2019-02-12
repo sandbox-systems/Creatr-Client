@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import axios from 'axios'
 import subscribe from 'unstated-subscribe-hoc'
 import AuthContainer from '../../containers/AuthContainer'
 
 import {
-  Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete,
+  Form, Input, Select, Button, AutoComplete,
 } from 'antd';
 
 const FormItem = Form.Item;

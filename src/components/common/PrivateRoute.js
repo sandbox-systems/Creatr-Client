@@ -2,9 +2,7 @@ import React from 'react'
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   Redirect,
-  withRouter
 } from 'react-router-dom'
 import AuthContainer from '../../containers/AuthContainer';
 import subscribe from "unstated-subscribe-hoc";

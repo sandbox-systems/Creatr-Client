@@ -5,7 +5,6 @@ import subscribe from "unstated-subscribe-hoc";
 import VideoGrid from "../common/VideoGrid";
 import NewVideoModal from "./modals/NewVideoModal";
 import LiveStreamWindow from "./LiveStreamWindow";
-import {Popout} from 'react-popout-component';
 import StartStreamModal from "./modals/StartStreamModal";
 import Chat from "../common/Chat";
 
