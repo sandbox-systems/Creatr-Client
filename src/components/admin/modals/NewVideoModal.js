@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import AdminContainer from "../../../containers/AdminContainer";
 import subscribe from "unstated-subscribe-hoc";
-import { Modal, Form, Button, Upload, Icon, Input, DatePicker } from "antd";
+import { Modal, Form, Button, Upload, Icon, Input, DatePicker, Select } from "antd";
 
 const { TextArea } = Input;
 const FormItem = Form.Item;
@@ -22,6 +22,9 @@ class NewVideoModal extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { adminStore } = this.props;
+    const sections = [...new Set(adminStore.state.users.map(e => e.section).flat())];
+   
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -68,6 +71,29 @@ class NewVideoModal extends Component {
                   }
                 ]
               })(<DatePicker showTime format="MMM Do YY, h:mm A" use12Hours />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="Class Section">
+              {getFieldDecorator("section", {
+                rules: [
+                  {
+                    required: true,
+                    message: "Please input the class section for your video!"
+                  }
+                ]
+              })(
+              <Select
+                  mode="tags"
+                  style={{ width: '100%' }}
+                  tokenSeparators={[',']}
+                  handleaChange={()=>{}}
+                >
+                {
+                  sections.map( (e, i) => (
+                    <Select.Option key={i}> {e} </Select.Option>
+                  ))
+                }
+                </Select>              
+            )}
             </FormItem>
             <FormItem {...formItemLayout} label="Thumbnail">
               {getFieldDecorator("thumbnail", {

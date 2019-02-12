@@ -13,6 +13,7 @@
     "draft-js": "^0.10.5",
     "mobx": "^5.7.0",
     "mobx-react": "^5.4.2",
+    "moment": "^2.23.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-draft-wysiwyg": "^1.12.13",
@@ -20,6 +21,7 @@
     "react-iframe": "^1.3.3",
     "react-new-window": "^0.0.10",
     "react-plyr": "^2.1.1",
+    "react-popout": "^1.0.1",
     "react-popout-component": "^1.8.5",
     "react-quill": "^1.3.3",
     "react-redux": "^5.1.1",
@@ -28,6 +30,7 @@
     "react-scripts": "2.1.1",
     "react-youtube": "^7.8.0",
     "redux": "^4.0.1",
+    "socket.io-client": "^2.2.0",
     "unstated": "^2.1.1",
     "unstated-debug": "^0.3.2",
     "unstated-subscribe-hoc": "^1.0.0"

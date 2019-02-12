@@ -68,6 +68,24 @@ class AuthContainer extends Container {
     }
   };
 
+  register = async formData => {
+    try {
+      const res = await  axios.post('/api/v1/auth/register/', formData)
+      window.location.reload()
+      // this.setState({
+      //   loggedIn: true,
+      //   role: res.data.result.role,
+      //   firstname: res.data.result.firstname,
+      //   lastname: res.data.result.lastname,
+      // });
+      // localStorage.setItem('token', `Bearer ${res.data.token}`);
+      // localStorage.setItem('role', res.data.result.role);
+    } catch (error) {
+      console.error("Error:", error);
+      throw new Error('Registration Failed')
+    }
+  };
+
   logout = async () => {
     console.log("logged out!")
     this.setState({

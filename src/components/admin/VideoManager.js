@@ -5,7 +5,9 @@ import subscribe from "unstated-subscribe-hoc";
 import VideoGrid from "../common/VideoGrid";
 import NewVideoModal from "./modals/NewVideoModal";
 import LiveStreamWindow from "./LiveStreamWindow";
+import {Popout} from 'react-popout-component';
 import StartStreamModal from "./modals/StartStreamModal";
+import Chat from "../common/Chat";
 
 class VideoManager extends Component {
   state = {
@@ -14,6 +16,7 @@ class VideoManager extends Component {
   };
   render() {
     const { adminStore } = this.props;
+    const {stream} = adminStore.state
     return (
       <div>
         <Row gutter={32} >
@@ -67,6 +70,13 @@ class VideoManager extends Component {
                 Stop Livestream
                 {/* <Icon type="thunderbolt" theme="filled" /> */}
               </Button>
+              {adminStore.state.stream&&
+                <Chat
+                getConfig = {adminStore.getConfig}
+                video = {stream._id}
+                />
+              }
+             
             </Affix>
           </Col>
         </Row>

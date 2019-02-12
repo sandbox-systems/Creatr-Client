@@ -4,8 +4,9 @@ class StudentContainer extends Container {
   state = {
     videos: [],
     modal: {},
-    isLoading: false,
-    stream: null
+    isLoading: true,
+    stream: null,
+    messages: []
   };
 
   config = {
@@ -30,9 +31,9 @@ class StudentContainer extends Container {
     try {
       this.setState({ isLoading: true });
       const res = await Promise.all([
-        axios.get("http://localhost:3000/api/v1/videos", this.config),
-        axios.get("http://localhost:3000/api/v1/streams", this.config),
-        axios.get("http://localhost:3000/api/v1/content", this.config)
+        axios.get("/api/v1/videos", this.config),
+        axios.get("/api/v1/streams", this.config),
+        axios.get("/api/v1/content", this.config)
       ]);
       const [videosRes, streamRes, contentRes] = res;
       console.log(res);
@@ -46,5 +47,42 @@ class StudentContainer extends Container {
       console.error("Error:", error);
     }
   };
+
+  addMessage = async (message, video=this.state.stream._id) => {
+    try {
+      const res = await axios.post("/api/v1/messages/", {video, message}, this.getConfig());
+
+      console.log(res);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  getMessages = async (video=this.state.stream._id) => {
+    try {
+      // const res = await axios({
+      //   method: 'get',
+      //   url: '/api/v1/messages/',
+      //   headers: this.getConfig().headers,
+      //   data: {video}
+      // });
+      const res = await axios.get("/api/v1/messages/"+video, this.config);
+      // this.getData()
+      console.log(res);
+      this.setState({messages:res.data.result})
+      return res.data.result;
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  getConfig = () => {
+    return {
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    }
+  }
+
 }
 export default StudentContainer;

@@ -44,10 +44,12 @@ function TileNav() {
           </Link>   
         </Col>
         <Col span={8}>
+        <Link to={"/portal/schedule"}>
           <Card hoverable className="menu-card" title="My Schedule">
             <MdInsertInvitation className="icon" />
             <div>See Upcoming Livestreams and Events</div>
           </Card>
+        </Link>  
         </Col>
       </Row>
     </div>

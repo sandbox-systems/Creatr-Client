@@ -15,6 +15,7 @@ import VideoArchive from "./VideoArchive"
 import {default as ContentPage} from "./Content"
 import TileNav from "./TileNav"
 import Live from "./Live"
+import Schedule from "./Schedule";
 
 const { Content } = Layout;
 
@@ -49,6 +50,7 @@ class Student extends Component {
               <Route exact path='/portal/' component={TileNav}/>
               <Route path='/portal/videos' component={VideoArchive}/>
               <Route path='/portal/notes' component={ContentPage}/>
+              <Route path='/portal/schedule' component={Schedule}/>
               <Route path='/portal/live' component={Live}/>
             </div>
             <br />

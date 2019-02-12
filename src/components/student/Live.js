@@ -3,6 +3,7 @@ import { List, Row, Col } from "antd";
 import YouTube from "react-youtube";
 import StudentContainer from "../../containers/StudentContainer";
 import subscribe from "unstated-subscribe-hoc";
+import Chat from "../common/Chat";
 
 class Live extends Component {
   render() {
@@ -11,23 +12,33 @@ class Live extends Component {
     console.log(studentStore)
     return (
       <div>
-        { stream ? 
-          <YouTube
-            videoId={stream.vid}
-            opts={{
-              height: "500px",
-              width: "100%",
-              playerVars: {
-                modestbranding: "1",
-                frameborder:"0",
-                rel:"0",
-                // controls:'0'
-              }
-            }}
-          />
-          :
-          <span>No current livestreams. Check back later.</span>
-        }  
+        { !isLoading&&
+         <Row gutter={32}>
+          <Col span={18}>
+            <YouTube
+              videoId={stream.vid}
+              opts={{
+                height: "500px",
+                width: "100%",
+                playerVars: {
+                  modestbranding: "1",
+                  frameborder:"0",
+                  rel:"0",
+                  // controls:'0'
+                }
+              }}
+            />
+          </Col>
+          <Col span={6}>
+              <Chat
+                getConfig = {studentStore.getConfig}
+                video = {stream._id}
+              />
+          </Col>
+         </Row>
+         
+        } 
+
       </div>
     );
   }

@@ -116,6 +116,17 @@ class AdminContainer extends Container {
     }
   };
 
+  updateUser = async formData => {
+    console.log(formData)
+    try {
+      const res = await axios.put("/api/v1/users/"+formData._id, formData, this.getConfig());
+      this.getData()
+      console.log(res);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   getConfig = () => {
     return {
       headers: {
