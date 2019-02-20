@@ -36,10 +36,10 @@ function TileNav() {
       <div style={{ height: "50px" }} />
       <Row gutter={50} type="flex" justify="center" align="center">
         <Col span={8}>
-          <Link to={"/portal/notes"}>
-            <Card hoverable className="menu-card" title="Notes">
+          <Link to={"/portal/bulletin"}>
+            <Card hoverable className="menu-card" title="Bulletin">
               <MdAssignment className="icon" />
-              <div>Access Notes and Extra Content</div>
+              <div>Access Instructor Messages </div>
             </Card>
           </Link>   
         </Col>

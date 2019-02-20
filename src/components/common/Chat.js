@@ -51,13 +51,18 @@ class Chat extends Component {
   }
   addMessage = async (res) => {
     if(res.video == this.props.video){
-     this.setState({messages:[...this.state.messages, res]})
+     this.setState({messages:[res, ...this.state.messages]})
     }
   }
   render() {
     const {messages} = this.state
     return (
       <div>
+        <Chatbar
+          placeholder="send a message"
+          enterButton="Send"
+          onSearch={this.sendMessage}
+        />
         { messages.length > 0 && 
         <List
           className="comment-list"
@@ -74,11 +79,7 @@ class Chat extends Component {
           )}
         />
         }
-        <Chatbar
-          placeholder="send a message"
-          enterButton="Send"
-          onSearch={this.sendMessage}
-        />
+        
       </div>
     );
   }

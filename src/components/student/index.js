@@ -46,10 +46,10 @@ class Student extends Component {
               <Breadcrumb.Item>Student</Breadcrumb.Item>
               <Breadcrumb.Item>Course Access Portal</Breadcrumb.Item>
             </Breadcrumb>
-            <div style={{ background: "#fff", padding: 50 }}>
+            <div style={{ background: "#fff", padding: 50, minHeight:"calc(100vh - 225px)" }}>
               <Route exact path='/portal/' component={TileNav}/>
               <Route path='/portal/videos' component={VideoArchive}/>
-              <Route path='/portal/notes' component={ContentPage}/>
+              <Route path='/portal/bulletin' component={ContentPage}/>
               <Route path='/portal/schedule' component={Schedule}/>
               <Route path='/portal/live' component={Live}/>
             </div>

@@ -25,12 +25,15 @@ class NewContentModal extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
       colon: false
     };
     const {adminStore} = this.props
+    const sections = [...new Set(adminStore.state.users.map(e => e.section).flat())];
+
     const {videos} = adminStore.state
     return (
       <div>
@@ -63,28 +66,28 @@ class NewContentModal extends Component {
               })(<TextArea />)}
             </FormItem>
               
-            <FormItem {...formItemLayout} label="Video">
-              {getFieldDecorator("video", {
+            <FormItem {...formItemLayout} label="Class Section">
+              {getFieldDecorator("section", {
                 rules: [
-                  {
+                  { 
+                    required: true,
                     message: "Pick a Stream!"
                   }
                 ]
               })
               (  
                 <Select
-                  showSearch
-                  placeholder="Select a video"
-                  optionFilterProp="children"
-                  notFoundContent="No scheduled streams"
-                  // filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                >
-                  {
-                    videos.map( item => (
-                      <Option key={item._id} value={item._id}>{item.name}</Option>
-                    ))
-                  }
-                </Select>
+                mode="tags"
+                style={{ width: '100%' }}
+                tokenSeparators={[',']}
+                handleaChange={()=>{}}
+              >
+              {
+                sections.map( (e, i) => (
+                  <Select.Option value={e} key={i}> {e} </Select.Option>
+                ))
+              }
+              </Select>              
             )}
             </FormItem>
           </Form>

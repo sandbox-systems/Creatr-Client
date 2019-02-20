@@ -1,5 +1,7 @@
 import { Breadcrumb, Col, Icon, Layout, Menu, Row } from "antd";
 import React, { Component } from "react";
+import { withRouter } from "react-router";
+import { Route } from 'react-router-dom'
 import subscribe from "unstated-subscribe-hoc";
 import AdminContainer from "../../containers/AdminContainer";
 import AppHeader from '../common/AppHeader';
@@ -12,20 +14,21 @@ const { Content, Footer } = Layout;
 
 class Admin extends Component {
   state = {
-    current: "content",
+    // current: "user",
     users: {},
     videos: {}
   };
   componentDidMount = () => {
     const { adminStore } = this.props;
     console.log("mounted!")
-   adminStore.getData();
+    adminStore.getData();
   };
 
   handleClick = e => {
-    this.setState({
-      current: e.key
-    });
+    // this.setState({
+    //   current: e.key
+    // });
+    this.props.history.push('/admin/'+e.key)
   };
 
   render() {
@@ -47,11 +50,11 @@ class Admin extends Component {
               <Col span={24}>
                 <Menu
                   onClick={this.handleClick}
-                  selectedKeys={[this.state.current]}
+                  selectedKeys={[this.props.location.pathname.split('/').slice(-1)[0]]}
                   mode="horizontal"
                   className="menu"
                 >
-                  <Menu.Item key="user">
+                  <Menu.Item key="users">
                     <Icon type="user" />
                     Users
                   </Menu.Item>
@@ -67,9 +70,13 @@ class Admin extends Component {
               </Col>
             </Row>
             <br />
-            {this.state.current == "user" && <UserManager />}
+            <Route exact path='/admin/' component={UserManager}/>
+            <Route path='/admin/users' component={UserManager}/>
+            <Route path='/admin/content' component={ContentManager}/>
+            <Route path='/admin/video' component={VideoManager}/>
+            {/* {this.state.current == "user" && <UserManager />}
             {this.state.current == "content" && <ContentManager />}
-            {this.state.current == "video" && <VideoManager />}
+            {this.state.current == "video" && <VideoManager />} */}
             </div>
           </Content>
           <AppFooter/>
@@ -79,4 +86,4 @@ class Admin extends Component {
   }
 }
 
-export default subscribe(Admin, { adminStore: AdminContainer });
+export default withRouter(subscribe(Admin, { adminStore: AdminContainer }));

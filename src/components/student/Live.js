@@ -12,7 +12,7 @@ class Live extends Component {
     console.log(studentStore)
     return (
       <div>
-        { !isLoading&&
+        { (!isLoading && stream) &&
          <Row gutter={32}>
           <Col span={18}>
             <YouTube
@@ -38,7 +38,9 @@ class Live extends Component {
          </Row>
          
         } 
-
+        { !stream &&
+          <p>There's not a live stream right now, please check back later</p>
+        }
       </div>
     );
   }

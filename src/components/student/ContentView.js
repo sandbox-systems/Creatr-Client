@@ -10,8 +10,8 @@ const ContentView = ({ data }) => (
   <ReactQuill 
   readOnly
     toolbar="false"
-    className="editor" 
-    value={data} 
+    className="editor readonly" 
+    value={data ? data : "Select a message on the left..."} 
   />
 );
 

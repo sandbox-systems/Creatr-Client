@@ -9,7 +9,7 @@ const FormItem = Form.Item;
 
 class UserModal extends Component {
   state = {
-    dirty: false
+    dirty: true
   }
   mapPropsToFields = (props) => {
     const { firstname, lastname, role, email, section} = props.user;
@@ -50,7 +50,7 @@ class UserModal extends Component {
           centered
           visible={this.props.visible}
           // onOk={() => this.handleSubmit()}
-          // onCancel={() => this.props.close()}
+          onCancel={() => this.props.close()}
           footer={[
             <Button key="cancel" onClick={() => this.props.close()}>Cancel</Button>,
             <Button key="submit" onClick={() => this.handleSubmit()} type="primary" >
@@ -114,7 +114,7 @@ class UserModal extends Component {
               >
                {
                   sections.map( (e, i) => (
-                    <Select.Option key={i}> {e} </Select.Option>
+                    <Select.Option value={e} key={i}> {e} </Select.Option>
                   ))
                 }
               </Select>      )}

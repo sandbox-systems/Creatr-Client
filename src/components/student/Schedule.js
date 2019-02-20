@@ -3,7 +3,8 @@ import StudentContainer from "../../containers/StudentContainer";
 import subscribe from "unstated-subscribe-hoc";
 
 
-import { Calendar, Badge } from 'antd';
+import { Calendar, Badge, List, Row, Col, Collapse } from 'antd';
+
 
 function getListData(value) {
   let listData;
@@ -65,9 +66,14 @@ function monthCellRender(value) {
 }
 
 const Schedule = props => {
+  console.log()
   return (
     <div>
-      <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
+      <Row gutter={16}>
+          <Col span={18}>
+          <Calendar fullscreen={false}/>
+          </Col>
+        </Row>
     </div>
   )
 }

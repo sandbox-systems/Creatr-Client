@@ -15,6 +15,7 @@ class NewVideoModal extends Component {
       if (!err) {
         values.date = values.date.toISOString();
         adminStore.addVideo(values);
+        console.log(values)
         this.props.close()
       }
     });
@@ -89,7 +90,7 @@ class NewVideoModal extends Component {
                 >
                 {
                   sections.map( (e, i) => (
-                    <Select.Option key={i}> {e} </Select.Option>
+                    <Select.Option value={e} key={i}> {e} </Select.Option>
                   ))
                 }
                 </Select>              

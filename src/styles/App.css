@@ -42,11 +42,16 @@ body {
   margin-right: 12px; 
 }
 
-.creatr-logo {
-  font-size: 1.8em;
+.creatr-brand {
+  font-size: 1.9em;
   font-weight: 500;
   font-family: verdana;
-  color:#1890ff;
+  color:#348683;
+  padding-left: 0px;
+}
+
+.creatr-logo {
+  height: 35px;
 }
 
 .editor.quill {
@@ -98,4 +103,19 @@ body {
   height: 200px;
   object-fit: cover;
   /* width: 100%; */
+}
+.editor.readonly .ql-toolbar{
+  display: none;
+}
+
+.editor.readonly {
+  border: none!important;
+}
+
+.editor.readonly .ql-editor {
+  min-height: 50px !important;
+  max-height: 600px;
+  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: scroll;
 }

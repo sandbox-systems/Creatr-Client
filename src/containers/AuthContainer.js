@@ -29,6 +29,7 @@ class AuthContainer extends Container {
         firstname: res.data.result.firstname,
         lastname: res.data.result.lastname,
       });
+      this.refresh().catch(err =>console.log(err))
     } catch (error) {
       this.setState({loggedIn: false})
       console.error("Login Failed")
@@ -45,10 +46,13 @@ class AuthContainer extends Container {
         firstname: res.data.result.firstname,
         lastname: res.data.result.lastname,
       });
+      localStorage.setItem('token', `Bearer ${res.data.token}`);
+      localStorage.setItem('role', res.data.result.role);
     } catch (error) {
       console.error("Token Refresh Failed", "Logged Out")
-      throw new Error('Failed to refresh')
+      throw new Error('Failed to refresh ' + error, )
     }
+    
   }
 
   login = async formData => {
