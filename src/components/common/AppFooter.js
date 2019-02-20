@@ -6,7 +6,7 @@ function AppFooter() {
   return (
     <div>
       <Footer style={{ textAlign: "center" }}>
-        Creatr © 2018 Daniel Whiteside
+        `Creatr © 2019 & and Sandbox Systems LLC`
       </Footer>
     </div>
   );
