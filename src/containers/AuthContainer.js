@@ -5,10 +5,11 @@ class AuthContainer extends Container {
     super()
 
     this.getUser()
-
+   this.getContent()
     this.state = {
       loggedIn: localStorage.getItem('role') ? true : false,
       role: localStorage.getItem('role'),
+      landingContent: '',
       firstname: '',
       lastname: ''
     };
@@ -19,7 +20,19 @@ class AuthContainer extends Container {
       Authorization: localStorage.getItem("token")
     }
   };
-
+  getContent = async () => {
+    try {
+      const res = await  axios.get('/api/v1/public/content/Test', this.config)
+      this.setState({
+        landingContent: res.data.result.data,
+      });
+      // this.refresh().catch(err =>console.log(err))
+    } catch (error) {
+      // this.setState({loggedIn: false})
+      // console.error("Login Failed")
+      throw new Error('Failed to get data')
+    }
+  }
   getUser = async ()  => {
     try {
       const res = await  axios.get('/api/v1/me', this.config)

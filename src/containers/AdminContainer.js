@@ -10,7 +10,8 @@ class AdminContainer extends Container {
       current: "user",
       users: [],
       videos: [],
-  
+      content: [],
+
       isLoading: false,
       stream: null,
       streamkey: null
@@ -37,13 +38,15 @@ class AdminContainer extends Container {
       this.setState({isLoading:true})
       const res = await Promise.all([
         axios.get("/api/v1/videos", this.getConfig()),
+        axios.get("/api/v1/content", this.getConfig()),
         axios.get("/api/v1/users", this.getConfig()),
         axios.get("/api/v1/streams", this.getConfig())
       ]);
-      const [videosRes, usersRes, streamRes] = res;
+      const [videosRes, contentRes, usersRes, streamRes] = res;
       console.log(res)
       this.setState({
         users: usersRes.data.result,
+        content: contentRes.data.result,
         videos: videosRes.data.result,
         stream: streamRes.data.result,
         streamkey: streamRes.data.result,

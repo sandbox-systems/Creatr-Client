@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import AdminContainer from "../../containers/AuthContainer";
+import subscribe from "unstated-subscribe-hoc";
 import {
   Row,
   Col,
@@ -8,8 +10,10 @@ import {
   Icon,
   Tab,
   Carousel,
-  Tabs
+  Tabs,
+  Spin
 } from "antd";
+import ReactQuill from 'react-quill';
 import AuthRedirect from "../common/AuthRedirect";
 import AppHeader from "../common/AppHeader";
 import AppFooter from "../common/AppFooter";
@@ -19,6 +23,7 @@ import Banner2 from "../../images/banner-2.jpg";
 import LoginForm from "./LoginForm";
 import LeadContent from "./LeadContent";
 import RegisterForm from "./RegisterForm";
+import AuthContainer from "../../containers/AuthContainer";
 
 const { Header, Content, Sider } = Layout;
 const { TabPane } = Tabs;
@@ -42,7 +47,18 @@ class Home extends Component {
             <div style={{ background: "#fff", padding: 50 }}>
               <Row gutter={64}>
                 <Col span={16}>
-                  <h2>Welcome to Creatr!</h2>
+                {/* <ReactQuill 
+  readOnly
+    toolbar="false"
+    className="editor readonly" 
+    value={this.props.authStore.state.landingContent} 
+  /> */}
+    <div dangerouslySetInnerHTML={{__html:this.props.authStore.state.landingContent}}/>
+      {/* <div className="spin-container">
+       <Spin size="large"  />
+      </div> */}
+
+                  {/* <h2>Welcome to Creatr!</h2>
                   <p>
                     Hello and welcome to Creatr! Creatr is an all-in-one
                     tutoring platform built for the modern age. Through realtime
@@ -130,7 +146,7 @@ class Home extends Component {
                   For additional questions or support, please email us at{" "}
                   <a href="mailtto:creatrclasses@gmail.com">
                     creatrclasses@gmail.com{" "}
-                  </a>
+                  </a> */}
                   {/* <LeadContent /> */}
                 </Col>
                 <Col span={8}>
@@ -153,4 +169,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default subscribe(Home, { authStore: AuthContainer });

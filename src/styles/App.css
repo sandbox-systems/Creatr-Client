@@ -99,6 +99,11 @@ body {
   color:red;
 }
 
+.spin-container {
+  text-align: center;
+  margin-top: 15%;
+}
+
 .banner-image {
   height: 200px;
   object-fit: cover;
